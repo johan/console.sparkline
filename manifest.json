@@ -1,0 +1,16 @@
+{ "manifest_version": 2
+, "name": "console.sparkline"
+, "version": "1.0"
+, "description": "Adds console.sparkline to all web pages and Chrome Devtools."
+, "author": "Johan Sundström"
+, "minimum_chrome_version": "54.0.2838.0"
+, "content_scripts":
+  [ { "matches": [ "<all_urls>" ]
+    , "run_at": "document_start"
+    , "js": [ "inject.js" ]
+    }
+  ]
+, "web_accessible_resources":
+  [ "console.sparkline.js"
+  ]
+}
