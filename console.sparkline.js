@@ -45,6 +45,13 @@ const backgroundImage = (svg, w, h) => {
 };
 
 const log = (...msg) => {
+  if (!msg.length) {
+    const tip = 'console.sparkline("Happiness:", [1, 1, 2, 3, 5, 8, 13, 21])';
+    console.info(`Try something like: ${tip}`);
+    console.info('You can also poke at flags: Object.keys(console.sparkline)');
+    return;
+  }
+
   let {stroke, fill, maxWidth, fontHeight, tailNumber} = log;
   if (stroke === true) stroke = 'mediumseagreen';
   if (fill === true) fill = 'rgba(60,179,113,0.25)';
