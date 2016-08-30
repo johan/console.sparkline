@@ -33,9 +33,14 @@ const sparkline = (d, maxWidth, height, stroke, fill) => {
 
 const backgroundImage = (svg, w, h) => {
   const x = w >> 1, y = h >> 1;
-  const url = 'data:image/svg+xml;base64,' + btoa(svg);
+
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=495643#c8
+  const nop = 'linear-gradient(to top, transparent, transparent)';
+  const url = `url("data:image/svg+xml;base64,${btoa(svg)}")`;
+  const chrome52bypass = `${nop}, ${url} no-repeat`;
+
   const css = `color: transparent; font-size: 1px; line-height: ${h}px; ` +
-    `padding: ${y+3}px ${x}px ${y-3}px; background: url("${url}") no-repeat;`;
+    `padding: ${y+3}px ${x}px ${y-3}px; background: ${chrome52bypass};`;
   return css;
 };
 
@@ -70,7 +75,8 @@ const log = (...msg) => {
         format += '%c' + arg[arg.length - 1];
         args.push('color: blue;');
       }
-      format += ' ';
+      format += '%c ';
+      args.push('');
     }
     else {
       pastFirstString = true;
