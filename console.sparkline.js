@@ -11,7 +11,7 @@ const sparkline = (d, maxWidth, height, stroke, fill) => {
   d = d.filter(Number.isFinite);
   const min = Math.min(...d);
   const max = Math.max(...d);
-  const dy = max - min;
+  const dy = (max - min) || 1;
 
   const yscale = (d = min) => {
     d -= min;
