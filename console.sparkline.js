@@ -52,7 +52,7 @@ const log = (...msg) => {
     return;
   }
 
-  let {stroke, fill, maxWidth, fontHeight, tailNumber} = log;
+  let {stroke, fill, maxWidth, fontHeight, tailNumber, rangeNumbers} = log;
   if (stroke === true) stroke = 'mediumseagreen';
   if (fill === true) fill = 'rgba(60,179,113,0.25)';
   let args = [];
@@ -82,6 +82,11 @@ const log = (...msg) => {
         format += '%c' + arg[arg.length - 1];
         args.push('color: blue;');
       }
+      if (rangeNumbers) {
+        format += '%c (' + Math.min.apply(Math, arg).toFixed(2)
+            + '|' + Math.max.apply(Math, arg).toFixed(2) + ')';
+        args.push('color: gray;');
+      } 
       format += '%c ';
       args.push('');
     }
@@ -99,6 +104,7 @@ log.maxWidth = 300;
 log.stroke = 'mediumseagreen';
 log.fill = false;
 log.tailNumber = false;
+log.rangeNumbers = false;
 
 return log;
 
